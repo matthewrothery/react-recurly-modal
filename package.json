@@ -1,0 +1,58 @@
+{
+  "name": "react-stripe-modal",
+  "version": "1.1.0",
+  "description": "",
+  "homepage": "https://github.com/matthewrothery/react-stripe-modal",
+  "main": "dist/bundle.js",
+  "scripts": {
+    "start": "webpack-dev-server --env.env --open --config ./webpack/dev.js",
+    "build": "./node_modules/webpack-cli/bin/cli.js --env.env --config ./webpack/prod.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/matthewrothery/react-stripe-modal.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/core": "^7.4.5",
+    "@babel/plugin-proposal-object-rest-spread": "^7.4.4",
+    "@babel/plugin-syntax-dynamic-import": "^7.2.0",
+    "@babel/plugin-transform-modules-commonjs": "^7.4.4",
+    "@babel/plugin-transform-react-jsx": "^7.3.0",
+    "@babel/preset-env": "^7.4.5",
+    "@babel/preset-react": "^7.0.0",
+    "babel-loader": "^8.0.6",
+    "babel-plugin-minify-dead-code-elimination": "^0.5.0",
+    "babel-plugin-transform-imports": "^1.5.1",
+    "case-sensitive-paths-webpack-plugin": "^2.2.0",
+    "compression-webpack-plugin": "^2.0.0",
+    "copy-webpack-plugin": "^5.0.3",
+    "css-loader": "^2.1.1",
+    "dotenv-webpack": "^1.7.0",
+    "html-webpack-plugin": "^3.2.0",
+    "idempotent-babel-polyfill": "^7.0.0",
+    "less": "^3.9.0",
+    "less-loader": "^5.0.0",
+    "raw-loader": "^2.0.0",
+    "style-loader": "^0.23.1",
+    "url-loader": "^1.1.2",
+    "webpack": "^4.32.2",
+    "webpack-cli": "^3.3.2",
+    "webpack-dev-server": "^3.5.1",
+    "webpack-merge": "^4.2.1",
+    "webpack-node-externals": "^1.7.2"
+  },
+  "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^1.2.19",
+    "@fortawesome/free-brands-svg-icons": "^5.9.0",
+    "@fortawesome/free-solid-svg-icons": "^5.9.0",
+    "@fortawesome/react-fontawesome": "^0.1.4",
+    "@recurly/react-recurly": "^1.1.1",
+    "class-autobind": "^0.1.4",
+    "moment": "^2.24.0",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6"
+  }
+}

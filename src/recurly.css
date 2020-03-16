@@ -1,0 +1,37 @@
+.recurly-element,
+.recurly-hosted-field {
+    background-color: #fff;
+    border-radius: 3px;
+    padding: 0 0 0 6px;
+    display: inline-block;
+    width: 100%;
+    border: 1px solid #c7c7c7;
+    height: 35px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 13px;
+}
+
+.recurly-element-cvv,
+.recurly-element-month,
+.recurly-element-year,
+.recurly-hosted-field-cvv,
+.recurly-hosted-field-month,
+.recurly-hosted-field-year {
+    width: 90%;
+    border-radius: 3px;
+}
+
+.recurly-element-focus,
+.recurly-hosted-field-focus {
+    border: 1px solid #8c8c91;
+}
+
+.recurly-element-invalid,
+.recurly-hosted-field-invalid {
+    border: 1px solid #e35256;
+}
+
+.recurly-element-number,
+.recurly-hosted-field-number {
+    width: 95%;
+}

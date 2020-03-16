@@ -1,0 +1,197 @@
+
+@fontColor: #565656;
+
+@mobile: ~"only screen and (max-width: 850px)";
+
+@borderRadius: 6px;
+
+.modal {
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 99;
+    background-color: rgba(132, 132, 132, 0.6);
+    font-family: Arial, Helvetica, sans-serif;
+    color: @fontColor;
+    -webkit-font-smoothing: antialiased;
+    font-size: 14px;
+    text-align: left;
+
+    & .content {
+        z-index: 999;
+        background-color: #fff;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        border-radius: @borderRadius;
+        width: 400px;
+        -webkit-box-shadow: 2px 2px 2px 0px rgba(0,0,0,0.05);
+        -moz-box-shadow: 2px 2px 2px 0px rgba(0,0,0,0.05);
+        box-shadow: 2px 2px 2px 0px rgba(0,0,0,0.05);
+
+        @media @mobile {
+            width: 95%;
+        }
+
+        & .header {
+            margin: 0;
+            padding: 6px 12px;
+            background-color: #eaeaea;
+            border-bottom: 1px solid darken(#eaeaea, 5%);
+            border-top-left-radius: @borderRadius;
+            border-top-right-radius: @borderRadius;
+            color: #585555;
+
+            & .title {
+                font-size: 0.9em;
+                line-height: 24px;
+                font-weight: 600;
+            }
+
+            & .icons {
+                float: right;
+
+                & svg {
+                    margin: 2px 3px;
+                    font-size: 1.5em;
+                }
+            }
+        }
+
+        & .body {
+            padding: 12px;
+
+            form {
+                margin: 0;
+                margin-bottom: 6px;
+            }
+
+            & .cardNumber {
+                width: 100%;
+                margin-bottom: 12px;
+                position: relative;
+
+                & .input {
+                    padding-right: 55px;
+                }
+
+                & svg {
+                    position: absolute;
+                    right: 4px;
+                    bottom: 3px;
+                    font-size: 2.5em;
+                }
+            }
+
+            & .cardExpiry {
+                width: 59%;
+                display: inline-block;
+                margin-right: 1%;
+                margin-bottom: 12px;
+
+                & .month, & .year {
+                    display: inline-block;
+                    width: 50%;
+                }
+            }
+
+            & .cardCVC {
+                width: 39%;
+                margin-left: 1%;
+                display: inline-block;
+                margin-bottom: 12px;
+            }
+
+            .label {
+                line-height: 24px;
+                text-transform: uppercase;
+                font-size: 0.8em;
+                font-weight: 600;
+            }
+
+            .input {
+                border: 1px solid #c7c7c7;
+                border-radius: 3px;
+                padding: 10px 8px 9px 8px;
+                font-family: Arial, Helvetica, sans-serif;
+            }
+
+
+            .footer {
+                text-align: left;
+
+                .submit {
+                    line-height: 30px;
+                    border-radius: 4px;
+                    background-color: #616161;
+                    color: #fdfdfd;
+                    font-size: 1.0em;
+                    width: 40%;
+                    border: 1px solid #505050;
+                    margin-top: 4px;
+                    display: inline-block;
+                    text-align: center;
+                    vertical-align: top;
+                    cursor: pointer;
+                    outline: none;
+                    height: 35px;
+                    position: relative;
+
+                    & > svg {
+                        position: absolute;
+                        margin-top: 11px;
+                        margin-left: -3px;
+                    }
+
+                    &:hover {
+                        background-color: #444444;
+                        filter: brightness(0.95);
+                        -webkit-filter: brightness(0.95);
+                        -moz-filter: brightness(0.95);
+                        -o-filter: brightness(0.95);
+                        -ms-filter: brightness(0.95);
+                        -webkit-transition: background-color 25ms linear;
+                        -ms-transition: background-color 25ms linear;
+                        transition: background-color 25ms linear;
+                    }
+
+                    &:disabled {
+                        filter: brightness(0.9);
+                        -webkit-filter: brightness(0.9);
+                        -moz-filter: brightness(0.9);
+                        -o-filter: brightness(0.9);
+                        -ms-filter: brightness(0.9);
+                        cursor: not-allowed;
+                    }
+                }
+
+                & .cancel {
+                    line-height: 35px;
+                    border-radius: 4px;
+                    color: #a7a7a7;
+                    font-size: 0.9em;
+                    border: 1px solid transparent;
+                    margin-left: 5%;
+                    margin-top: 4px;
+                    display: inline-block;
+                    text-align: center;
+                    vertical-align: top;
+                    cursor: pointer;
+                    transition: all 0.25s ease;
+                    outline: none;
+
+                    &:hover {
+                        color: #444444;
+                    }
+                }
+
+                & .errors {
+                    color: rgb(255, 153, 153);
+                }
+            }
+        }
+    }
+}

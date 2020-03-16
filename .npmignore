@@ -1,0 +1,7 @@
+# .npmignore 
+dist
+node_modules
+public
+src
+.gitignore
+webpack
