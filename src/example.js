@@ -55,8 +55,8 @@ class MyComponent extends React.Component {
                     headerColor={"#fff"}
                     buttonStyle={{ backgroundColor: "#098dd5", borderColor: "#098dd5" }}
                     customerEmail={"demo@website.com"}
-                    customerFirstname={"Matthew"}
-                    customerLastname={"Rothery"}
+                    customerFirstname={"Firstname"}
+                    customerLastname={"Lastname"}
                     onSubmit={this.onSubmit}
                     buttonLabel={"Upgrade Account"}
                     onCancel={this.closeModal}
