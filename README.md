@@ -1,14 +1,14 @@
 [![forthebadge](https://forthebadge.com/images/badges/its-not-a-lie-if-you-believe-it.svg)](https://forthebadge.com) [![forthebadge](https://forthebadge.com/images/badges/built-with-love.svg)](https://forthebadge.com)
 
-# react-stripe-modal
+# react-recurly-modal
 
 <p align="center"><img src="./snapshot.jpg" width="450" /></p>
 
 # How to use
 
-Make sure to include the stripe api
+Make sure to include the recurly api
 ```html
-<script src="https://js.stripe.com/v3/" async></script>
+<script src="https://js.recurly.com/v4/recurly.js" async></script>
 ```
 
 ## Sample Usage
@@ -16,37 +16,37 @@ Make sure to include the stripe api
 ```javascript
 import React from 'react';
 import { render } from 'react-dom';
-import ReactStripeModal from './index';
+import ReactRecurlyModal from './index';
 
 class MyComponent extends React.Component {
 
     constructor(props) {
         super(props);
         this.onSubmit = this.onSubmit.bind(this);
-        this.openStripeModal = this.openStripeModal.bind(this);
-        this.closeStripeModal = this.closeStripeModal.bind(this);
+        this.openModal = this.openModal.bind(this);
+        this.closeModal = this.closeModal.bind(this);
 
         this.state = {
-            open: false,
+            open: true,
             errorMessage: null,
         }
     }
 
-    // Open the stripe modal
-    openStripeModal() {
+    // Open the modal
+    openModal() {
         this.setState({
             open: true,
         });
     }
 
-    // Close the stripe modal
-    closeStripeModal() {
+    // Close the modal
+    closeModal() {
         this.setState({
             open: false,
         });
     }
 
-    // Handle the submission of the stripe form
+    // Handle the submission of the form
     onSubmit(token) {
         console.log(token);
 
@@ -62,19 +62,20 @@ class MyComponent extends React.Component {
             <div>
                 <h2>Card Details</h2>
 
-                <input type="button" onClick={this.openStripeModal} value={"Update Card Details"} />
+                <input type="button" onClick={this.openModal} value={"Update Card Details"} />
 
-                <ReactStripeModal
+                <ReactRecurlyModal
                     open={this.state.open}
-                    stripePublicKey={"your-api-key"}
+                    recurlyPublicKey={"your-recurly-public-key"}
                     headerBackgroundColor={"#098dd5"}
                     headerColor={"#fff"}
                     buttonStyle={{ backgroundColor: "#098dd5", borderColor: "#098dd5" }}
                     customerEmail={"demo@website.com"}
-                    customerName={"Matt"}
+                    customerFirstname={"Firstname"}
+                    customerLastname={"Lastname"}
                     onSubmit={this.onSubmit}
                     buttonLabel={"Upgrade Account"}
-                    onCancel={this.closeStripeModal}
+                    onCancel={this.closeModal}
                     errorMessage={this.state.errorMessage}
                 />
             </div>
