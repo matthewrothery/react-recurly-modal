@@ -19,7 +19,7 @@ export default props => {
     return (
         <div className={styles.cardNumber}>
             <div className={styles.label}>Card Number {cardIcon(type)}</div>
-            <CardNumberElement onChange={onChange} style={{ fontSize: '14px', placeholder: { content: '1234 1234 1234 1234' } }} />
+            <CardNumberElement onChange={v => onChange({ ...v, type: 'cardNumber' })} style={{ fontSize: '14px', placeholder: { content: '1234 1234 1234 1234' } }} />
         </div>
     );
 }

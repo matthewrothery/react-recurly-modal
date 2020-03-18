@@ -50,16 +50,19 @@ class MyComponent extends React.Component {
 
                 <ReactRecurlyModal
                     open={this.state.open}
-                    recurlyPublicKey={""}
+                    recurlyPublicKey={"recurly-api-key"}
                     headerBackgroundColor={"#098dd5"}
                     headerColor={"#fff"}
                     buttonStyle={{ backgroundColor: "#098dd5", borderColor: "#098dd5" }}
                     customerEmail={"demo@website.com"}
-                    customerName={"Matt"}
+                    customerFirstname={"Matthew"}
+                    customerLastname={"Rothery"}
                     onSubmit={this.onSubmit}
                     buttonLabel={"Upgrade Account"}
                     onCancel={this.closeModal}
                     errorMessage={this.state.errorMessage}
+                    firstname={"Firstname"}
+                    lastname={"Lastname"}
                 />
             </div>
         )

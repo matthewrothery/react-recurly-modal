@@ -17,19 +17,22 @@ class Form extends React.Component {
         super(props);
         autobind(this);
 
+        this.form = React.createRef();
         this.state = {
             cardType: null,
             isPending: false,
             errors: {
                 cardNumber: null,
-                cardExpiry: null,
+                cardExpiryMonth: null,
+                cardExpiryYear: null,
                 cardCvc: null,
                 submitError: null,
                 onSubmitParent: props.errorMessage || null,
             },
             fields: {
                 card: null,
-                expiry: null,
+                expiryMonth: null,
+                expiryYear: null,
                 cvc: null
             },
             hasSubmitted: false,
@@ -37,42 +40,45 @@ class Form extends React.Component {
     }
 
     onChange(element) {
-        const { elementType } = element;
-
         let cardType = this.state.cardType;
         let errors = this.state.errors || {};
         let fields = this.state.fields;
 
-        errors.submitError = null;
-        errors.onSubmitParent = null;
+        if (element.focus && element.length) {
+            fields[element.type] = element;
+        } else if (!element.focus && element.length && fields[element.type].focus) {
+            // We can continue!
+            errors.submitError = null;
+            errors.onSubmitParent = null;
 
-        if (elementType === 'cardNumber') {
-            cardType = element.brand === 'unknown' ? null : element.brand;
-        }
-
-        if (!element.error) {
-            if (elementType === 'cardNumber') {
-                fields.card = true;
-            } else if (elementType === 'cardExpiry') {
-                fields.expiry = true;
-            } else if (elementType === 'cardCvc') {
-                fields.cvc = true;
+            if (element.type === 'cardNumber') {
+                cardType = element.brand === 'unknown' ? null : element.brand;
             }
-        }
 
-        // Check for errors
-        if (element.error && element.error.message) {
-            errors[elementType] = element.error.message;
-        } else if (element.empty) {
-            if (elementType === 'cardNumber') {
-                errors[elementType] = "Card number cannot be empty";
-            } else if (elementType === 'cardExpiry') {
-                errors[elementType] = "Card Expiry cannot be empty";
-            } else if (elementType === 'cardCvc') {
-                errors[elementType] = "Card CVC cannot be empty";
+            // Check for errors
+            if (!element.valid) {
+                if (element.type === 'cardNumber') {
+                    errors[element.type] = "Card number is invalid";
+                } else if (element.type === 'cardExpiryMonth') {
+                    errors[element.type] = "Card expiry month is invalid";
+                } else if (element.type === 'cardExpiryYear') {
+                    errors[element.type] = "Card expiry year is invalid";
+                } else if (element.type === 'cardCvc') {
+                    errors[element.type] = "Card CVC is invalid";
+                }
+            } else if (element.empty) {
+                if (element.type === 'cardNumber') {
+                    errors[element.type] = "Card number cannot be empty";
+                } else if (element.type === 'cardExpiry') {
+                    errors[element.type] = "Card Expiry cannot be empty";
+                } else if (element.type === 'cardCvc') {
+                    errors[element.type] = "Card CVC cannot be empty";
+                }
+            } else {
+                errors[element.type] = null;
             }
-        } else {
-            errors[elementType] = null
+        } else if (!element.focus && fields[element.type] && fields[element.type].focus && !element.length) {
+            errors[element.type] = null;
         }
 
         this.setState({
@@ -85,58 +91,32 @@ class Form extends React.Component {
 
     // Handle form submission
     onSubmit(evt, recurly) {
-        const { customerEmail, onSubmit, stripe, customerName } = this.props;
+        const { onSubmit } = this.props;
         evt.preventDefault();
         this.setState({
             isPending: true,
         }, () => {
-
-            recurly.token(myFormRef.current, (err, token) => {
+            recurly.token(this.form.current, (err, token) => {
                 if (err) {
-                    // handle error
+                    // handle error - TODO: handle errors individually
+                    this.setState({
+                        errors: { ...this.state.errors, ['submitError']: "Please fill out all fields" }
+                    });
                 } else {
                     // save the token.id, and submit it to the Recurly API from your server
+                    // There are no errors, lets fetch the token &
+                    // send the token to parent component
+                    if (onSubmit && typeof onSubmit === 'function') {
+                        onSubmit(data.token);
+                    } else {
+                        console.warn("@react-recurly-modal > missing onSubmit property");
+                    }
+                    this.setState({
+                        isPending: false,
+                        hasSubmitted: true,
+                    });
                 }
             });
-
-            // stripe.createToken({ type: 'card', name: customerName, email: customerEmail }).then((data) => {
-            //     if (data.error && data.error.message) {
-            //         let message = "";
-
-            //         switch (data.error.type) {
-            //             case 'incomplete_number': message = 'Invalid card number'; break;
-            //             case 'incomplete_cvc': message = 'Invalid CVC'; break;
-            //             case 'incomplete_expiry': message = 'Invalid expiry'; break;
-            //             case 'invalid_request_error': {
-            //                 message = 'Invalid request - please try again later';
-            //                 console.warn("@react-stripe-modal > invalid Stripe API Key");
-            //                 break;
-            //             }
-            //             default: message = 'Invalid form data'; break;
-            //         }
-
-            //         this.setState({
-            //             errors: {
-            //                 ...this.state.errors,
-            //                 submitError: message
-            //             },
-            //             isPending: false,
-            //             hasSubmitted: true,
-            //         });
-            //     } else {
-            //         // There are no errors, lets fetch the token &
-            //         // send the token to parent component
-            //         if (onSubmit && typeof onSubmit === 'function') {
-            //             onSubmit(data.token);
-            //         } else {
-            //             console.warn("@react-stripe-modal > missing onSubmit property");
-            //         }
-            //         this.setState({
-            //             isPending: false,
-            //             hasSubmitted: true,
-            //         });
-            //     }
-            // });
         });
     }
 
@@ -158,7 +138,7 @@ class Form extends React.Component {
     }
 
     render() {
-        const { headerColor, headerBackgroundColor, buttonStyle, onCancel, submitLabel } = this.props;
+        const { headerColor, headerBackgroundColor, buttonStyle, onCancel, submitLabel, customerFirstname, customerLastname } = this.props;
         return (
             <div className={styles.modal}>
                 <div className={styles.content}>
@@ -180,6 +160,9 @@ class Form extends React.Component {
                         buttonStyle={buttonStyle}
                         submitLabel={submitLabel}
                         isPending={this.state.isPending}
+                        form={this.form}
+                        firstname={customerFirstname}
+                        lastname={customerLastname}
                     />
                 </div>
             </div>
@@ -189,18 +172,19 @@ class Form extends React.Component {
 
 export default Form;
 
-
 function FunctionalComponentForm(props) {
-    const { cardType, onChange, isValid, errors, onSubmit, onCancel, buttonStyle, submitLabel, isPending } = props;
+    const { cardType, onChange, isValid, errors, onSubmit, onCancel, buttonStyle, submitLabel, isPending, form, firstname, lastname } = props;
     const recurly = useRecurly();
 
     return (
-        <div className={styles.body}>
+        <form className={styles.body} ref={form}>
+            <input type="text" data-recurly="first_name" value={firstname} />
+            <input type="text" data-recurly="last_name" value={lastname} />
             <CardNumber type={cardType} onChange={onChange} />
             <CardExpiry onChange={onChange} />
             <CardCVC onChange={onChange} />
             <Footer valid={isValid()} errors={errors} onSubmit={(evt) => onSubmit(evt, recurly)} close={onCancel} buttonStyle={buttonStyle} submitLabel={submitLabel} isPending={isPending} />
-        </div>
+        </form>
     );
 }
 

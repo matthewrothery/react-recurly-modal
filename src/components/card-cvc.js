@@ -8,7 +8,7 @@ export default props => {
     return (
         <div className={styles.cardCVC}>
             <div className={styles.label}>CVC Code</div>
-            <CardCvvElement onChange={onChange} style={{ fontSize: '14px', placeholder: { content: 'CVC' } }} />
+            <CardCvvElement onChange={v => onChange({ ...v, type: 'cardCvc' })} style={{ fontSize: '14px', placeholder: { content: 'CVC' } }} />
         </div>
     );
 }
