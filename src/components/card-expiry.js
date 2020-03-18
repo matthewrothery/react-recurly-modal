@@ -7,9 +7,9 @@ export default props => {
 
     return (
         <div className={styles.cardExpiry}>
-            <div className={styles.label}>Expiry Date (MM/YY)</div>
+            <div className={styles.label}>Expiry Date (MM/YYYY)</div>
             <CardMonthElement className={styles.month} onChange={v => onChange({ ...v, type: 'cardExpiryMonth' })} style={{ fontSize: '14px', placeholder: { content: 'MM' } }} />
-            <CardYearElement className={styles.year} onChange={v => onChange({ ...v, type: 'cardExpiryYear' })} style={{ fontSize: '14px', placeholder: { content: 'YY' } }} />
+            <CardYearElement className={styles.year} onChange={v => onChange({ ...v, type: 'cardExpiryYear' })} style={{ fontSize: '14px', placeholder: { content: 'YYYY' } }} />
         </div>
     );
 }

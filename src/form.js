@@ -107,7 +107,7 @@ class Form extends React.Component {
                     // There are no errors, lets fetch the token &
                     // send the token to parent component
                     if (onSubmit && typeof onSubmit === 'function') {
-                        onSubmit(data.token);
+                        onSubmit(token);
                     } else {
                         console.warn("@react-recurly-modal > missing onSubmit property");
                     }
@@ -178,8 +178,8 @@ function FunctionalComponentForm(props) {
 
     return (
         <form className={styles.body} ref={form}>
-            <input type="text" data-recurly="first_name" value={firstname} />
-            <input type="text" data-recurly="last_name" value={lastname} />
+            <input type="hidden" data-recurly="first_name" value={firstname} />
+            <input type="hidden" data-recurly="last_name" value={lastname} />
             <CardNumber type={cardType} onChange={onChange} />
             <CardExpiry onChange={onChange} />
             <CardCVC onChange={onChange} />
