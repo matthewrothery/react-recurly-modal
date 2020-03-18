@@ -61,8 +61,6 @@ class MyComponent extends React.Component {
                     buttonLabel={"Upgrade Account"}
                     onCancel={this.closeModal}
                     errorMessage={this.state.errorMessage}
-                    firstname={"Firstname"}
-                    lastname={"Lastname"}
                 />
             </div>
         )
