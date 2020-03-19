@@ -1,6 +1,6 @@
 {
   "name": "react-recurly-modal",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "",
   "homepage": "https://github.com/matthewrothery/react-recurly-modal",
   "main": "dist/bundle.js",
