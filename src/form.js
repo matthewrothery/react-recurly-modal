@@ -156,7 +156,7 @@ class Form extends React.Component {
                         isValid={this.isValid}
                         errors={this.state.errors}
                         onSubmit={this.onSubmit}
-                        onCancel={this.onCancel}
+                        onCancel={onCancel}
                         buttonStyle={buttonStyle}
                         submitLabel={submitLabel}
                         isPending={this.state.isPending}
